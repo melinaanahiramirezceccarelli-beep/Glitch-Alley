@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
+    <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1018013910689174');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1018013910689174&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Gracias! - Glitch Alley</title>
@@ -40,12 +58,14 @@
             
             overflow-x: hidden;
             
-            /* CENTRADO PERFECTO PARA LA PANTALLA DE GRACIAS */
+            /* AJUSTE PARA PERMITIR SCROLL Y ACOMODAR TODO EL CONTENIDO */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            height: 100vh; /* Ocupa el 100% del alto de la ventana */
+            min-height: 100vh;
+            padding: 60px 20px;
+            box-sizing: border-box;
         }
 
         a, button {
@@ -89,14 +109,14 @@
             81% { opacity: 0.5; top: 85%; }
         }
 
-        /* === TEXTO Y BOTÓN === */
+        /* === TÍTULO === */
         h1 {
             font-family: 'Doctor Glitch', sans-serif;
             color: var(--neon-cyan);
             text-shadow: 0 0 15px rgba(74, 226, 208, 0.8), 0 0 30px rgba(74, 226, 208, 0.4);
             font-weight: normal;
-            font-size: 7rem; /* Texto gigante */
-            margin: 0;
+            font-size: 6rem;
+            margin: 0 0 30px 0;
             text-align: center;
             animation: slight-float 4s infinite ease-in-out;
             letter-spacing: 5px;
@@ -107,8 +127,88 @@
             50% { transform: translateY(-10px); }
         }
 
+        /* === CUADRO DE TEXTO === */
+        .texto-agradecimiento {
+            background: rgba(3,5,5,0.8);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(74, 226, 208, 0.1);
+            padding: 30px 40px;
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .texto-agradecimiento::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 30px; height: 30px;
+            border-top: 3px solid var(--neon-cyan);
+            border-left: 3px solid var(--neon-cyan);
+        }
+
+        .texto-agradecimiento p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .texto-agradecimiento strong {
+            color: #fff;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        /* === SECCIÓN LOGOS COMPAÑEROS === */
+        .logos-companeros {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin-bottom: 60px;
+        }
+
+        .logo-link {
+            /* Flexbox ayuda a centrar perfectamente la imagen adentro sin importar su forma */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            width: 140px; /* Un poco más anchos por si hay logos rectangulares */
+            height: 100px;
+            background: rgba(0, 0, 0, 0.6); /* Fondo apenas oscuro */
+            border: 1px solid rgba(74, 226, 208, 0.3);
+            padding: 10px; /* Espacio interno para que no toquen el borde */
+            box-sizing: border-box; /* Asegura que el padding no agrande la caja */
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .logo-link img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* ESTA ES LA CLAVE: Muestra el logo completo sin recortar */
+            filter: grayscale(60%) brightness(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .logo-link:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(74, 226, 208, 0.6);
+            transform: translateY(-5px);
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .logo-link:hover img {
+            filter: grayscale(0%) brightness(1.1);
+            transform: scale(1.05); /* Zoom muy sutil al pasar el mouse */
+        }
+
+        /* === BOTÓN === */
         .btn-volver {
-            margin-top: 60px;
             display: inline-block;
             padding: 15px 40px;
             font-size: 22px;
@@ -120,6 +220,7 @@
             transition: all 0.3s ease;
             letter-spacing: 2px;
             font-family: 'Doctor Glitch', sans-serif;
+            margin-bottom: 40px;
         }
 
         .btn-volver:hover {
@@ -131,12 +232,10 @@
 
         /* Responsivo para celulares */
         @media (max-width: 600px) {
-            h1 {
-                font-size: 4rem;
-            }
-            .btn-volver {
-                font-size: 18px;
-            }
+            h1 { font-size: 3.5rem; }
+            .texto-agradecimiento p { font-size: 1rem; }
+            .logo-link { width: 100px; height: 80px; padding: 5px; } /* Achicamos las cajas en celular */
+            .btn-volver { font-size: 18px; padding: 12px 30px; }
         }
     </style>
 </head>
@@ -154,6 +253,58 @@
     <!-- CONTENIDO PRINCIPAL -->
     <h1>¡Gracias!</h1>
     
+    <div class="texto-agradecimiento">
+        <p>¡Muchas gracias por apoyar este proyecto! Tu voto impulsa al desarrollo de <strong>Glitch Alley</strong>. Mientras Patch continúa con su aventura, te invito a explorar los proyectos de mis compañeros y descubrir nuevos mundos.</p>
+    </div>
+
+    <!-- CONTENEDOR DE LOS 14 LOGOS -->
+    <div class="logos-companeros">
+        <!-- Reemplaza el href con el link de la página y el src con el nombre de la imagen -->
+        <a href="https://garciaguevarakiara.wixsite.com/kiara" target="_blank" class="logo-link">
+            <img src="Intrusion.png" alt="Juego 1">
+        </a>
+        <a href="https://terrabusiagustina-bit.github.io/Out-of-the-Bounds/" target="_blank" class="logo-link">
+            <img src="OutOfTheBounds.png" alt="Juego 2">
+        </a>
+        <a href="https://link-del-juego-3.com" target="_blank" class="logo-link">
+            <img src="umbra.png" alt="Juego 3">
+        </a>
+        <a href="https://maitevictorial.wixsite.com/maitelopezrosende" target="_blank" class="logo-link">
+            <img src="Patocalipsis.png" alt="Juego 4">
+        </a>
+        <a href="https://amyranmy.github.io/Echoes-/" target="_blank" class="logo-link">
+            <img src="echoes.PNG" alt="Juego 5">
+        </a>
+        <a href="https://sakaearts.github.io/beecoming/" target="_blank" class="logo-link">
+            <img src="Logo Bee.png" alt="Juego 6">
+        </a>
+        <a href="https://arcetaller.wixsite.com/sweetescape" class="logo-link">
+            <img src="LogoSweetEscape.png" alt="Juego 7">
+        </a>
+        <a href="https://lucilamunizashkar-glitch.github.io/Cristalia/" target="_blank" class="logo-link">
+            <img src="logo cristalia 2.png" alt="Juego 8">
+        </a>
+        <a href="https://sofiacerizola.wixsite.com/to-space-and-back" target="_blank" class="logo-link">
+            <img src="logo-TSAB.png" alt="Juego 9">
+        </a>
+        <a href="https://abrilroldan4.wixsite.com/abrilroldan" target="_blank" class="logo-link">
+            <img src="logo-FeelBetter.png" alt="Juego 10">
+        </a>
+        <a href="https://link-del-juego-11.com" target="_blank" class="logo-link">
+            <img src="logo_juego_11.jpg" alt="Juego 11">
+        </a>
+        <a href="https://link-del-juego-12.com" target="_blank" class="logo-link">
+            <img src="logo_juego_12.jpg" alt="Juego 12">
+        </a>
+        <a href="https://link-del-juego-13.com" target="_blank" class="logo-link">
+            <img src="logo_juego_13.jpg" alt="Juego 13">
+        </a>
+        <a href="https://link-del-juego-14.com" target="_blank" class="logo-link">
+            <img src="logo_juego_14.jpg" alt="Juego 14">
+        </a>
+    </div>
+
+    <!-- BOTÓN VOLVER -->
     <a href="index.html" class="btn-volver">VOLVER AL INICIO</a>
 
 </body>
