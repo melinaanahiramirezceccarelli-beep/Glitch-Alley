@@ -135,7 +135,7 @@ src="https://www.facebook.com/tr?id=1018013910689174&ev=PageView&noscript=1"
             padding: 30px 40px;
             max-width: 800px;
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
             position: relative;
         }
 
@@ -164,47 +164,39 @@ src="https://www.facebook.com/tr?id=1018013910689174&ev=PageView&noscript=1"
         .logos-companeros {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 1000px;
-            margin-bottom: 60px;
+            justify-content: center; /* Sigue centrado, pero como es más ancho, se esparce más */
+            gap: 35px; /* Más espacio entre los logos */
+            max-width: 1200px; /* Contenedor mucho más ancho hacia los costados */
+            width: 95%;
+            margin-bottom: 70px;
         }
 
         .logo-link {
-            /* Flexbox ayuda a centrar perfectamente la imagen adentro sin importar su forma */
             display: flex;
             justify-content: center;
             align-items: center;
-            
-            width: 140px; /* Un poco más anchos por si hay logos rectangulares */
-            height: 100px;
-            background: rgba(0, 0, 0, 0.6); /* Fondo apenas oscuro */
-            border: 1px solid rgba(74, 226, 208, 0.3);
-            padding: 10px; /* Espacio interno para que no toquen el borde */
-            box-sizing: border-box; /* Asegura que el padding no agrande la caja */
+            width: 170px; /* Logos más grandes */
+            height: 120px; /* Logos más grandes */
             position: relative;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .logo-link img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* ESTA ES LA CLAVE: Muestra el logo completo sin recortar */
-            filter: grayscale(60%) brightness(0.8);
+            object-fit: contain; /* Sigue garantizando que no se recorten */
+            filter: drop-shadow(0 0 2px rgba(74, 226, 208, 0.1)) grayscale(50%) brightness(0.85); /* Un poquito menos grises por defecto */
             transition: all 0.3s ease;
         }
 
         .logo-link:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 15px rgba(74, 226, 208, 0.6);
-            transform: translateY(-5px);
+            transform: translateY(-8px); /* Flota un poquito más al pasar el mouse */
             z-index: 2;
-            background: rgba(0, 0, 0, 0.9);
         }
 
         .logo-link:hover img {
-            filter: grayscale(0%) brightness(1.1);
-            transform: scale(1.05); /* Zoom muy sutil al pasar el mouse */
+            filter: drop-shadow(0 0 18px rgba(74, 226, 208, 0.8)) grayscale(0%) brightness(1.1); /* Ahora el brillo emana directo del logo */
+            transform: scale(1.1);
         }
 
         /* === BOTÓN === */
@@ -234,14 +226,13 @@ src="https://www.facebook.com/tr?id=1018013910689174&ev=PageView&noscript=1"
         @media (max-width: 600px) {
             h1 { font-size: 3.5rem; }
             .texto-agradecimiento p { font-size: 1rem; }
-            .logo-link { width: 100px; height: 80px; padding: 5px; } /* Achicamos las cajas en celular */
+            .logo-link { width: 120px; height: 90px; } /* Ajuste de tamaño para celulares */
             .btn-volver { font-size: 18px; padding: 12px 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ELEMENTOS DE GLITCH ANIMADOS DE FONDO -->
     <div class="glitch-line"></div>
     <div class="glitch-box" style="width: 150px; height: 2px; top: 10%; left: 5%; animation-delay: 0.2s;"></div>
     <div class="glitch-box" style="width: 20px; height: 10px; top: 45%; left: 15%; animation-delay: 1.5s;"></div>
@@ -250,61 +241,57 @@ src="https://www.facebook.com/tr?id=1018013910689174&ev=PageView&noscript=1"
     <div class="glitch-box" style="width: 30px; height: 20px; top: 60%; right: 20%; animation-delay: 2.2s;"></div>
     <div class="glitch-box" style="width: 120px; height: 2px; top: 85%; right: 15%; animation-delay: 4.5s;"></div>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <h1>¡Gracias!</h1>
     
     <div class="texto-agradecimiento">
         <p>¡Muchas gracias por apoyar este proyecto! Tu voto impulsa al desarrollo de <strong>Glitch Alley</strong>. Mientras Patch continúa con su aventura, te invito a explorar los proyectos de mis compañeros y descubrir nuevos mundos.</p>
     </div>
 
-    <!-- CONTENEDOR DE LOS 14 LOGOS -->
     <div class="logos-companeros">
-        <!-- Reemplaza el href con el link de la página y el src con el nombre de la imagen -->
-        <a href="https://garciaguevarakiara.wixsite.com/kiara" target="_blank" class="logo-link">
-            <img src="Intrusion.png" alt="Juego 1">
+        <a href="https://amyranmy.github.io/Echoes-/" class="logo-link">
+            <img src="echoes.PNG" alt="Juego 1">
         </a>
-        <a href="https://terrabusiagustina-bit.github.io/Out-of-the-Bounds/" target="_blank" class="logo-link">
-            <img src="OutOfTheBounds.png" alt="Juego 2">
-        </a>
-        <a href="https://link-del-juego-3.com" target="_blank" class="logo-link">
-            <img src="umbra.png" alt="Juego 3">
-        </a>
-        <a href="https://maitevictorial.wixsite.com/maitelopezrosende" target="_blank" class="logo-link">
-            <img src="Patocalipsis.png" alt="Juego 4">
-        </a>
-        <a href="https://amyranmy.github.io/Echoes-/" target="_blank" class="logo-link">
-            <img src="echoes.PNG" alt="Juego 5">
+        <a href="https://arcetaller.wixsite.com/sweetescape" target="_blank" class="logo-link">
+            <img src="LogoSweetEscape.png" alt="Juego 2">
         </a>
         <a href="https://sakaearts.github.io/beecoming/" target="_blank" class="logo-link">
-            <img src="Logo Bee.png" alt="Juego 6">
+            <img src="Logo Bee.png" alt="Juego 3">
         </a>
-        <a href="https://arcetaller.wixsite.com/sweetescape" class="logo-link">
-            <img src="LogoSweetEscape.png" alt="Juego 7">
-        </a>
-        <a href="https://lucilamunizashkar-glitch.github.io/Cristalia/" target="_blank" class="logo-link">
-            <img src="logo cristalia 2.png" alt="Juego 8">
+        <a href="https://bdylan3.wixsite.com/website" target="_blank" class="logo-link">
+            <img src="" alt="Juego 4">
         </a>
         <a href="https://sofiacerizola.wixsite.com/to-space-and-back" target="_blank" class="logo-link">
-            <img src="logo-TSAB.png" alt="Juego 9">
+            <img src="logo-TSAB.png" alt="Juego 5">
+        </a>
+        <a href="https://damicogiuliano-my-site-3.editor.wix.com/edit/od/4b85e8a1-6bcd-4bc9-aa63-429be179936e?metaSiteId=bcbbb31d-bf74-49c3-aa8f-1a892eb5e0d9" target="_blank" class="logo-link">
+            <img src="logo_juego_6.jpg" alt="Juego 6">
+        </a>
+        <a href="https://garciaguevarakiara.wixsite.com/intrusion" target="_blank" class="logo-link">
+            <img src="Intrusion.png" alt="Juego 7">
+        </a>
+        <a href="https://ejamardotraverso.wixsite.com/merienda-marina" target="_blank" class="logo-link">
+            <img src="logo_juego_8.jpg" alt="Juego 8">
+        </a>
+        <a href="https://maitevictorial.wixsite.com/maitelopezrosende" target="_blank" class="logo-link">
+            <img src="Patocalipsis.png" alt="Juego 9">
+        </a>
+        <a href="https://lucilamunizashkar-glitch.github.io/Cristalia/" target="_blank" class="logo-link">
+            <img src="logo cristalia 2.png" alt="Juego 10">
+        </a>
+        <a href="https://francorodriguez1.wixsite.com/umbra-morfeus-grimor" target="_blank" class="logo-link">
+            <img src="umbra.png" alt="Juego 11">
         </a>
         <a href="https://abrilroldan4.wixsite.com/abrilroldan" target="_blank" class="logo-link">
-            <img src="logo-FeelBetter.png" alt="Juego 10">
+            <img src="logo-FeelBetter.png" alt="Juego 12">
         </a>
-        <a href="https://link-del-juego-11.com" target="_blank" class="logo-link">
-            <img src="logo_juego_11.jpg" alt="Juego 11">
-        </a>
-        <a href="https://link-del-juego-12.com" target="_blank" class="logo-link">
-            <img src="logo_juego_12.jpg" alt="Juego 12">
-        </a>
-        <a href="https://link-del-juego-13.com" target="_blank" class="logo-link">
-            <img src="logo_juego_13.jpg" alt="Juego 13">
+        <a href="https://terrabusiagustina-bit.github.io/Out-of-the-Bounds/" target="_blank" class="logo-link">
+            <img src="OutOfTheBounds.png" alt="Juego 13">
         </a>
         <a href="https://link-del-juego-14.com" target="_blank" class="logo-link">
             <img src="logo_juego_14.jpg" alt="Juego 14">
         </a>
     </div>
 
-    <!-- BOTÓN VOLVER -->
     <a href="index.html" class="btn-volver">VOLVER AL INICIO</a>
 
 </body>
