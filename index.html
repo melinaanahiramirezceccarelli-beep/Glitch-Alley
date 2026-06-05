@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glitch Alley</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === IMPORTAR FUENTE DOCTOR GLITCH === */
+        @font-face {
+            font-family: 'Doctor Glitch';
+            src: url('Doctor_Glitch.otf') format('opentype');
+        }
+
+        /* === ESTILOS GENERALES === */
+        :root {
+            --neon-cyan: #4ae2d0;
+            --dark-bg: #030505;
+            --text-color: #b0d4d0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at center, transparent 10%, #000000 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(74, 226, 208, 0.03) 2px, rgba(74, 226, 208, 0.03) 4px),
+                linear-gradient(0deg, transparent 24%, rgba(74, 226, 208, 0.05) 25%, rgba(74, 226, 208, 0.05) 26%, transparent 27%, transparent 74%, rgba(74, 226, 208, 0.05) 75%, rgba(74, 226, 208, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(74, 226, 208, 0.05) 25%, rgba(74, 226, 208, 0.05) 26%, transparent 27%, transparent 74%, rgba(74, 226, 208, 0.05) 75%, rgba(74, 226, 208, 0.05) 76%, transparent 77%, transparent);
+            background-size: 100% 100%, 100% 4px, 60px 60px, 60px 60px;
+            background-attachment: fixed;
+            
+            color: var(--text-color);
+            font-family: 'Share Tech Mono', monospace;
+            
+            /* CURSOR LED GLITCH */
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><path d='M4 4 L14 30 L18 20 L28 16 Z' fill='none' stroke='%234ae2d0' stroke-width='8' stroke-opacity='0.2'/><path d='M4 4 L14 30 L18 20 L28 16 Z' fill='none' stroke='%234ae2d0' stroke-width='4' stroke-opacity='0.5'/><path d='M4 4 L10 18 L9 18 L14 30 L18 20 L23 18 L23 19 L28 16 Z' fill='%234ae2d0'/></svg>"), auto;
+            
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        a, button {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><path d='M4 4 L14 30 L18 20 L28 16 Z' fill='none' stroke='%234ae2d0' stroke-width='8' stroke-opacity='0.2'/><path d='M4 4 L14 30 L18 20 L28 16 Z' fill='none' stroke='%234ae2d0' stroke-width='4' stroke-opacity='0.5'/><path d='M4 4 L10 18 L9 18 L14 30 L18 20 L23 18 L23 19 L28 16 Z' fill='%234ae2d0'/></svg>"), pointer;
+        }
+
+        h1, h2, .btn-votar {
+            font-family: 'Doctor Glitch', sans-serif;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(74, 226, 208, 0.6);
+            font-weight: normal;
+        }
+
+        /* === HEADER Y NAVEGACIÓN === */
+        header {
+            background: linear-gradient(180deg, rgba(3,5,5,0.95) 0%, transparent 100%);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid transparent;
+            border-image: linear-gradient(90deg, transparent 15%, rgba(74, 226, 208, 0.4) 50%, transparent 85%) 1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        /* === ANIMACIONES GLITCH DE FONDO === */
+        .glitch-box {
+            position: fixed;
+            background-color: var(--neon-cyan);
+            box-shadow: 0 0 12px var(--neon-cyan);
+            opacity: 0;
+            z-index: -1;
+            animation: glitch-blink 4s infinite;
+        }
+
+        .glitch-line {
+            position: fixed;
+            width: 100%;
+            height: 3px;
+            background: rgba(74, 226, 208, 0.6);
+            box-shadow: 0 0 15px rgba(74, 226, 208, 0.9);
+            z-index: 50;
+            opacity: 0;
+            animation: scanline-glitch 7s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes glitch-blink {
+            0%, 92%, 96%, 98% { opacity: 0; transform: scale(1) translateX(0); }
+            93% { opacity: 0.9; transform: scale(1.2) translateX(15px); }
+            97% { opacity: 0.7; transform: scale(1.5) translateX(-15px); }
+            99% { opacity: 1; transform: scale(0.8) translateY(10px); }
+            100% { opacity: 0; }
+        }
+
+        @keyframes scanline-glitch {
+            0%, 10%, 12%, 50%, 52%, 80%, 82%, 100% { opacity: 0; }
+            11% { opacity: 0.8; top: 15%; }
+            51% { opacity: 0.9; top: 60%; }
+            81% { opacity: 0.5; top: 85%; }
+        }
+
+        /* === SECCIÓN HERO === */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 90px 20px 20px;
+            text-align: center;
+        }
+
+        .logo-hero {
+            width: 250px;
+            height: auto;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(74, 226, 208, 0.5));
+            animation: slight-float 4s infinite ease-in-out;
+        }
+
+        @keyframes slight-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 900px;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 25px rgba(74, 226, 208, 0.4), inset 0 0 15px rgba(74, 226, 208, 0.2);
+            padding: 5px;
+            background: #000;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        .btn-votar {
+            margin-top: 40px;
+            display: inline-block;
+            padding: 15px 60px;
+            font-size: 32px;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            background-color: rgba(3,5,5,0.7);
+            border: 2px solid var(--neon-cyan);
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            transition: all 0.3s ease;
+            letter-spacing: 4px;
+        }
+
+        .btn-votar:hover {
+            background-color: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 35px var(--neon-cyan);
+            text-shadow: none;
+        }
+
+        /* === SECCIONES DE TEXTO CON IMAGEN (Juego y Patch) === */
+        .about-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            width: 90%;
+            margin: 120px auto 80px; /* Aumentado el margen superior para separar del video */
+            padding: 0;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1.7;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            border-left: 4px solid var(--neon-cyan);
+            padding-left: 40px;
+            background: linear-gradient(90deg, rgba(74, 226, 208, 0.08) 0%, transparent 100%);
+        }
+
+        /* Variante invertida para la sección Patch */
+        .patch-text {
+            flex: 1.7;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            border-right: 4px solid var(--neon-cyan); /* Borde a la derecha */
+            padding-right: 40px;
+            background: linear-gradient(-90deg, rgba(74, 226, 208, 0.08) 0%, transparent 100%); /* Gradiente invertido */
+            text-align: right; /* Alineamos el texto a la derecha para acompañar el borde */
+        }
+
+        .about-text h2, .patch-text h2 {
+            font-size: 2.5rem;
+            margin-top: 0;
+            letter-spacing: 2px;
+        }
+
+        .about-text strong, .patch-text strong {
+            color: #fff;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .about-text em, .patch-text em {
+            color: var(--neon-cyan);
+            font-style: normal;
+            border-bottom: 1px dashed var(--neon-cyan);
+        }
+
+        .about-image {
+            flex: 1.3;
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(74, 226, 208, 0.3));
+            transform: scale(1.05);
+        }
+
+        /* === SECCIÓN MECÁNICAS === */
+        .mecanicas-section {
+            max-width: 1300px;
+            width: 90%;
+            margin: 0 auto 120px;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .mecanicas-section h2 {
+            font-size: 3rem;
+            margin-bottom: 60px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .card {
+            background: rgba(3,5,5,0.8);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(74, 226, 208, 0.1);
+            padding: 40px 30px;
+            flex: 1;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 30px; height: 30px;
+            border-top: 3px solid var(--neon-cyan);
+            border-left: 3px solid var(--neon-cyan);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(74, 226, 208, 0.4);
+            background: rgba(5,8,8,0.9);
+        }
+
+        .card h3 {
+            color: #fff;
+            font-size: 1.4rem;
+            text-shadow: 0 0 8px var(--neon-cyan);
+            margin-top: 0;
+            border-bottom: 1px dashed var(--neon-cyan);
+            padding-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+
+        /* Responsivo para celulares */
+        @media (max-width: 900px) {
+            nav { gap: 15px; flex-wrap: wrap; }
+            .about-section { flex-direction: column; width: 95%; margin-top: 60px; }
+            /* Arreglo específico para celular en la nueva sección Patch (para que la imagen no quede abajo del texto) */
+            #patch.about-section { flex-direction: column-reverse; }
+            
+            .about-text { border-left: none; border-top: 4px solid var(--neon-cyan); padding-left: 0; padding-top: 25px; }
+            .patch-text { border-right: none; border-top: 4px solid var(--neon-cyan); padding-right: 0; padding-top: 25px; text-align: left; }
+            
+            .about-image img { transform: scale(1); max-width: 90%; }
+            .cards-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ELEMENTOS DE GLITCH ANIMADOS DE FONDO -->
+    <div class="glitch-line"></div>
+    <div class="glitch-box" style="width: 150px; height: 2px; top: 10%; left: 5%; animation-delay: 0.2s;"></div>
+    <div class="glitch-box" style="width: 20px; height: 10px; top: 45%; left: 15%; animation-delay: 1.5s;"></div>
+    <div class="glitch-box" style="width: 60px; height: 5px; top: 75%; left: 8%; animation-delay: 3.1s;"></div>
+    <div class="glitch-box" style="width: 80px; height: 3px; top: 30%; right: 10%; animation-delay: 0.7s;"></div>
+    <div class="glitch-box" style="width: 30px; height: 20px; top: 60%; right: 20%; animation-delay: 2.2s;"></div>
+    <div class="glitch-box" style="width: 120px; height: 2px; top: 85%; right: 15%; animation-delay: 4.5s;"></div>
+
+    <!-- HEADER DE NAVEGACIÓN -->
+    <header>
+        <nav>
+            <a href="#juego">Juego</a>
+            <a href="#mecanicas">Mecánicas</a>
+            <a href="#patch">Patch</a>
+            <a href="#imagenes">Imágenes</a>
+        </nav>
+    </header>
+
+    <!-- SECCIÓN HERO (Video) -->
+    <section class="hero" id="hero">
+        <img src="logo_GA.png" alt="Logo Glitch Alley" class="logo-hero">
+        
+        <div class="video-container">
+            <video controls autoplay muted loop>
+                <source src="tu-video.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+        </div>
+        
+        <a href="gracias.html" class="btn-votar">VOTAR</a>
+    </section>
+
+    <!-- SECCIÓN: JUEGO (¿De qué trata Glitch Alley?) -->
+    <!-- Observa que ahora tiene id="juego" para que el header baje hasta aquí -->
+    <section class="about-section" id="juego">
+        <div class="about-text">
+            <h2>¿De qué trata Glitch Alley?</h2>
+            <p><strong>Glitch Alley</strong> es un videojuego de acción, aventura y exploración inspirado en el género metroidvania.</p>
+            <p>Ambientado en una ciudad digital distópica consumida por fallas conocidas como <em>glitches</em>, el jugador encarna a Patch, una entidad capaz de sobrevivir dentro de un sistema al borde del colapso.</p>
+            <p>Explora distritos neón, callejones ocultos y estructuras corrompidas mientras enfrentas enemigos afectados por la corrupción digital, superas obstáculos cambiantes y recolectas fragmentos de datos que revelan la historia de un mundo donde el error se ha convertido en parte de la realidad.</p>
+        </div>
+        <div class="about-image">
+            <img src="grieta.png" alt="Personaje Patch de Glitch Alley">
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE MECÁNICAS -->
+    <section class="mecanicas-section" id="mecanicas">
+        <h2>Mecánicas</h2>
+        <div class="cards-container">
+            <div class="card">
+                <h3>EXPLORA Y DESCUBRE</h3>
+                <p>Recorre una ciudad digital fragmentada, encuentra rutas ocultas y recolecta fragmentos de datos para desbloquear nuevas zonas y revelar la historia detrás del colapso.</p>
+            </div>
+            <div class="card">
+                <h3>ADÁPTATE AL GLITCH</h3>
+                <p>Supera plataformas inestables, caminos que desaparecen y entornos en constante cambio. Utiliza tus habilidades para manipular las fallas y seguir avanzando.</p>
+            </div>
+            <div class="card">
+                <h3>ENFRÉNTATE A ENEMIGOS</h3>
+                <p>Enfréntate a entidades afectadas por el glitch mediante combate cuerpo a cuerpo. Aprende sus patrones y sobrevive a encuentros cada vez más desafiantes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: PATCH -->
+    <section class="about-section" id="patch">
+        <div class="about-image">
+            <!-- AQUÍ PONES LA IMAGEN NUEVA, fíjate en cambiar el src -->
+            <img src="patch_cool.png" alt="Personaje Patch">
+        </div>
+        <div class="patch-text">
+            <h2>Patch</h2>
+            <p><strong>Patch</strong> es una entidad digital capaz de sobrevivir a la corrupción que consume la ciudad. Marcado por glitches y sin memoria de su origen, recorre un mundo fragmentado en busca de la verdad detrás del colapso del sistema.</p>
+        </div>
+    </section>
+
+</body>
+</html>
