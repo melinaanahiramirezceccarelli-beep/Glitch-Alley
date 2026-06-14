@@ -137,7 +137,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 90px 20px 20px;
+            padding: 50px 20px 20px; /* Reducido para acercarlo al header */
             text-align: center;
         }
 
@@ -145,7 +145,7 @@
             width: 250px;
             height: auto;
             margin-top: -10px;
-            margin-bottom: 20px;
+            margin-bottom: 3px; /* Reducido para acercarlo al video */
             filter: drop-shadow(0 0 15px rgba(74, 226, 208, 0.5));
             animation: slight-float 4s infinite ease-in-out;
         }
@@ -320,7 +320,7 @@
         .imagenes-section {
             max-width: 1400px;
             width: 90%;
-            margin: 0 auto 120px;
+            margin: 0 auto 80px; /* Reduje el margin inferior para darle lugar al botón */
             text-align: center;
         }
 
@@ -365,6 +365,12 @@
             transform: scale(1.1); /* Efecto de zoom leve */
         }
 
+        /* === SECCIÓN FINAL (BOTÓN JUGAR) === */
+        .final-action {
+            text-align: center;
+            margin-bottom: 100px; /* Espacio antes del fin de la página */
+        }
+
         /* Responsivo para celulares */
         @media (max-width: 900px) {
             nav { gap: 15px; flex-wrap: wrap; }
@@ -400,7 +406,7 @@
     <section class="hero" id="hero">
         <img src="logo_GA.png" alt="Logo Glitch Alley" class="logo-hero">
         
-       <div class="video-container">
+        <div class="video-container">
             <iframe 
                 src="https://www.youtube.com/embed/orcxOSYf6Ko?autoplay=1&mute=1" 
                 title="Tráiler de Glitch Alley" 
@@ -469,6 +475,11 @@
                 <img src="Concept 2.png" alt="Captura Glitch Alley 4">
             </div>
         </div>
+    </section>
+
+    <!-- AQUÍ ESTÁ EL NUEVO BOTÓN JUGAR -->
+    <section class="final-action">
+        <a href="gracias.html" class="btn-votar">JUGAR</a>
     </section>
 
 </body>
